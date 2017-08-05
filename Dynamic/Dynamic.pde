@@ -10,6 +10,8 @@ import blueTelescope.dynamicWall.anim.*;
 import blueTelescope.dynamicWall.lib.*;
 import blueTelescope.dynamicWall.app.*;
 import java.util.Arrays;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 DynamicWallLib wallLib;
 
