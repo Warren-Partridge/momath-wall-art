@@ -18,7 +18,7 @@ public static class Animation extends WallAnimation {
   
   // Sorting Step Function
   void sortStep(){
-    int a = 0; int b = 0;
+    
   }
 
   // Number of wall slats
@@ -65,15 +65,40 @@ public static class Animation extends WallAnimation {
   // action should be programmed.
   void update() {
     // State Change
+    selectionStep();
     
     // State to Wall
-    
+    for (int j = 0; j < 128; j++){
+        wall.slats[j].setBottom(state[j]); 
+    }
     // Terminate State
   }
 
   // Leave this function blank
   void exit() {
   }
+  
+  void selectionStep() {
+    for (int i=0; i < n-1; i++) {
+      int min_index = i;
+      for (int j=i+1; j < n; j++) {
+        if (state[j] < state[min_index]) {
+          min_index = j;
+        }
+      
+      swap(min_index, i);
+      return;
+      }
+    }
+  }
+  
+  void swap(int x, int y) {
+    int temp = x;
+    state[x] = state[y];
+    state[y] = state[temp];
+  }
+    
+    
   
   // You can ignore everything from here.
   String getBehaviorName() {
