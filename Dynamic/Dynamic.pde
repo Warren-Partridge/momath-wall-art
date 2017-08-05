@@ -19,8 +19,7 @@ WallAnimation anim = new Animation();
 
 void setup() {
   size(1280, 480, P3D);
-
-  frameRate(30);
+  frameRate(10);
 
   wallLib = new DynamicWallLib(this, false);
 

@@ -65,7 +65,7 @@ public static class Animation extends WallAnimation {
   // also use this function to initialize variables, load data, etc.
   void setup() {
     createRandomCase();
-    System.out.println("This is " + isSorted(state));
+    System.out.println("This is " + isSorted());
     
     for (DWSlat slat : wall.slats){
       slat.setBottom(state[(int) i]);
@@ -88,11 +88,16 @@ public static class Animation extends WallAnimation {
       }
     } else {
     // State Change
+<<<<<<< HEAD
+    bubbleStep();
+=======
     //selectionStep();
     //mergeSortStep();
+>>>>>>> 2a6edfc5b9b4205e2f6dca4beaeb14681115a612
     // State to Wall
     for (int j = 0; j < 128; j++){
-        wall.slats[j].setBottom(state[j]);  
+        wall.slats[j].setBottom(state[j]);
+        wall.slats[j].setTop(state[j]); 
     }
     System.out.println(Arrays.toString(state));
     // Terminate State
@@ -187,6 +192,7 @@ public static class Animation extends WallAnimation {
     k++;
   }
   
+<<<<<<< HEAD
   while(j < size2){
     arr[k] = RIGHT[j];
     j++;
@@ -205,6 +211,27 @@ public static class Animation extends WallAnimation {
       
     }
 
+=======
+    // Selection sort step function
+  void bubbleStep() {
+      for(int i=selectionI; i<127;i++){
+        if(state[i]>state[i+1]){
+          swap(i, i+1);
+          break;
+        }
+      }
+      
+      if (selectionI >= 127) {
+        selectionI = 0;
+        return;
+      } else {
+        selectionI++;
+        return;
+      }
+  }
+  
+  
+>>>>>>> 74b0ed4bd374665a6725f5a9dd7c3d5bd19198b8
   // Swaping function
   void swap(int x, int y) {
     float temp = state[x];
