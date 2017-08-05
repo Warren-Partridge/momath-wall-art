@@ -9,6 +9,7 @@ import blueTelescope.dynamicWall.cacher.*;
 import blueTelescope.dynamicWall.anim.*;
 import blueTelescope.dynamicWall.lib.*;
 import blueTelescope.dynamicWall.app.*;
+import java.util.Arrays;
 
 DynamicWallLib wallLib;
 
