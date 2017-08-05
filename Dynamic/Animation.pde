@@ -16,6 +16,7 @@ public static class Animation extends WallAnimation {
   // initialize state array
   float state[] = new float[128];
   float sortedState[] = new float[128];
+  int selectionI = 0;
   
   // Sorting Step Function
   void sortStep(){
@@ -80,17 +81,20 @@ public static class Animation extends WallAnimation {
   
   // Selection sort step function
   void selectionStep() {
-    for (int i=0; i < 128; i++) {
-      int min_index = i;
-      for (int j=i+1; j < 128; j++) {
+      int min_index = selectionI;
+      for (int j=selectionI+1; j < 128; j++) {
         if (state[j] < state[min_index]) {
           min_index = j;
         }
-      
-      swap(min_index, i);
-      return;
       }
-    }
+      swap(min_index, selectionI);
+      if (selectionI >= 127) {
+        selectionI = 0;
+        return;
+      } else {
+        selectionI++;
+        return;
+      }
   }
   
   // Swaping function
@@ -98,6 +102,7 @@ public static class Animation extends WallAnimation {
     int temp = x;
     state[x] = state[y];
     state[y] = state[temp];
+    System.out.println("SWAP OCCURRED: " + state[x] + " and " + state[y]);
   }
     
     
