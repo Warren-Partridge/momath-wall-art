@@ -88,7 +88,12 @@ public static class Animation extends WallAnimation {
       }
     } else {
     // State Change
+<<<<<<< HEAD
     bubbleStep();
+=======
+    //selectionStep();
+    //mergeSortStep();
+>>>>>>> 2a6edfc5b9b4205e2f6dca4beaeb14681115a612
     // State to Wall
     for (int j = 0; j < 128; j++){
         wall.slats[j].setBottom(state[j]);
@@ -102,6 +107,36 @@ public static class Animation extends WallAnimation {
   // Leave this function blank
   void exit() {
   }
+  
+    public void convertBinary(int num){
+ 
+   int binary[] = new int[40];
+     int index = 0;
+     while(num > 0){
+       binary[index++] = num%2;
+       num = num/2;
+     }
+     for(int i = index-1;i >= 0;i--){
+       System.out.print(binary[i]);
+     }
+  }
+
+    static int[] fib(int n)
+    {
+        int[] feb = new int[n];
+        feb[0] = 0;
+        feb[1] = 1;
+        
+
+        for (int i = 2; i < n; i++)
+        {
+          feb[i] = feb[i-1] + feb[i-2];
+          System.out.print(feb[i] + " ");
+        }
+
+        return feb;
+    }
+  
   
   // Selection sort step function
   void selectionStep() {
