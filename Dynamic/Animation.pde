@@ -150,7 +150,61 @@ public static class Animation extends WallAnimation {
         return;
       }
   }
+    void merge(int arr[], int left, int mid, int right){
+    int size1 = mid - left + 1;
+    int size2 = right - mid;
+    
+    int LEFT[] = new int[size1];
+    int RIGHT[] = new int[size2];
+    
+    for (int i=0; i<size1; ++i){
+      LEFT[i] = arr[i+1];
+    }
+    
+    for (int j=0; j<size2; ++j){
+      RIGHT[j] = arr[mid+1+j];
+    }
+    
+  int i=0, j =0;
   
+  int k = left;
+  while(i < size1 && j < size2){
+    if(LEFT[i] <= RIGHT[j]){
+      arr[k] = LEFT[i];
+      i++;
+    }
+    
+    else{
+      arr[k] = RIGHT[j];
+      j++;    
+    }
+    k++;
+  }
+  
+  while(i < size1){
+    arr[k] = LEFT[i];
+    i++;
+    k++;
+  }
+  
+  while(j < size2){
+    arr[k] = RIGHT[j];
+    j++;
+    k++;
+  }  
+  }
+  
+  void sort(int arr[], int left, int right){
+    if(left < right){
+      int mid = (left + right) / 2;
+      
+      sort(arr, left, mid);
+      sort(arr, mid+1, right);
+      
+      merge(arr, left, mid, right);
+      
+    }
+
   // Swaping function
   void swap(int x, int y) {
     float temp = state[x];
