@@ -13,7 +13,12 @@ public static class Animation extends WallAnimation {
   float step = 0.0003;
   float loc = 0;
   float i = 0;
+  float state[] = new float[128];
   
+  // Sorting Step Function
+  void sortStep(){
+    int a = 0; int b = 0;
+  }
 
   // Number of wall slats
   int wallLength = 128;
@@ -22,11 +27,13 @@ public static class Animation extends WallAnimation {
   // also use this function to initialize variables, load data, etc.
   void setup() {
     for (DWSlat slat : wall.slats){
+      state[(int) i] = (64-(i%64))/64;
       slat.setBottom((64-(i%64))/64);
-      slat.setTop((64-(i%64))/64);
+      slat.setTop(0);
       i++;
     }
-  }		 
+  }
+  		 
 
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
