@@ -13,12 +13,8 @@ public static class Animation extends WallAnimation {
   float step = 0.0003;
   float loc = 0;
   float i = 0;
+  // initialize state array
   float state[] = new float[128];
-  
-  // Sorting Step Function
-  void sortStep(){
-    
-  }
 
   // Number of wall slats
   int wallLength = 128;
@@ -29,27 +25,28 @@ public static class Animation extends WallAnimation {
     //}
   }
   
+  // Setup the wall
   void createWorstCase(){
     for(int i=1; i< 128; i=i+2){
-      state[i] = ((float)(i-1))/128;   
+      state[i] = 1-((float)(i-1))/128;   
     }
     
     for(int i=0; i< 128; i=i+2){
-      state[i] = ((float)i)/128;   
+      state[i] = 1-((float)i)/128;   
     }
     
     //int arrayInt = [1,2,3,4];
     //System.out.println(arrayInt);
-    System.out.println(state.length);
-    System.out.println(Arrays.toString(state));
+    //System.out.println(state.length);
+    //System.out.println(Arrays.toString(state));
   }
+  
   // The setup block runs at the beginning of the animation. You could
   // also use this function to initialize variables, load data, etc.
   void setup() {
     createWorstCase();
     for (DWSlat slat : wall.slats){
-      state[(int) i] = (64-(i%64))/64;
-      slat.setBottom((64-(i%64))/64);
+      slat.setBottom(state[(int) i]);
       slat.setTop(0);
       i++;
     }
@@ -61,10 +58,9 @@ public static class Animation extends WallAnimation {
   void update() {
     // State Change
     selectionStep();
-    
     // State to Wall
     for (int j = 0; j < 128; j++){
-        wall.slats[j].setBottom(state[j]); 
+        wall.slats[j].setBottom(state[j]);  
     }
     // Terminate State
   }
@@ -73,10 +69,11 @@ public static class Animation extends WallAnimation {
   void exit() {
   }
   
+  // Selection sort step function
   void selectionStep() {
-    for (int i=0; i < n-1; i++) {
+    for (int i=0; i < 128; i++) {
       int min_index = i;
-      for (int j=i+1; j < n; j++) {
+      for (int j=i+1; j < 128; j++) {
         if (state[j] < state[min_index]) {
           min_index = j;
         }
@@ -87,6 +84,7 @@ public static class Animation extends WallAnimation {
     }
   }
   
+  // Swaping function
   void swap(int x, int y) {
     int temp = x;
     state[x] = state[y];
