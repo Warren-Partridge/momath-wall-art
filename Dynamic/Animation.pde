@@ -27,8 +27,8 @@ public static class Animation extends WallAnimation {
   int wallLength = 128;
   
   
-  boolean isSorted(float array[]) { // Returns true if it's sorted
-    if(array == sortedState){
+  boolean isSorted() { // Returns true if it's sorted
+    if(Arrays.equals(state, sortedState)){
       return true;
     }
     return false;
@@ -46,13 +46,25 @@ public static class Animation extends WallAnimation {
     sortedState = Arrays.copyOf(state, state.length); 
     Arrays.sort(sortedState);
 
+  
+    System.out.println(Arrays.toString(state));
+  }
+  
+  void createRandomCase(){
+     for(int i=1; i< 128; i++){
+      int value = ThreadLocalRandom.current().nextInt(0, 128 + 1);
+      state[i] = ((float)value)/128.00;
+    }
+    
+    sortedState = Arrays.copyOf(state, state.length); 
+    Arrays.sort(sortedState);
     System.out.println(Arrays.toString(state));
   }
   
   // The setup block runs at the beginning of the animation. You could
   // also use this function to initialize variables, load data, etc.
   void setup() {
-    createWorstCase();
+    createRandomCase();
     System.out.println("This is " + isSorted(state));
     
     for (DWSlat slat : wall.slats){
@@ -66,6 +78,15 @@ public static class Animation extends WallAnimation {
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
+    if (isSorted()) {
+      print("This is finished");
+      createRandomCase();      
+      for (DWSlat slat : wall.slats){
+        slat.setBottom(state[(int) i]);
+        slat.setTop(0);
+        i++;
+      }
+    } else {
     // State Change
     //selectionStep();
     //mergeSortStep();
@@ -73,7 +94,9 @@ public static class Animation extends WallAnimation {
     for (int j = 0; j < 128; j++){
         wall.slats[j].setBottom(state[j]);  
     }
+    System.out.println(Arrays.toString(state));
     // Terminate State
+  }
   }
 
   // Leave this function blank
@@ -130,9 +153,9 @@ public static class Animation extends WallAnimation {
   
   // Swaping function
   void swap(int x, int y) {
-    int temp = x;
+    float temp = state[x];
     state[x] = state[y];
-    state[y] = state[temp];
+    state[y] = temp;
     System.out.println("SWAP OCCURRED: " + state[x] + " and " + state[y]);
   }
     
