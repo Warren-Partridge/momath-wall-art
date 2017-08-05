@@ -17,7 +17,7 @@ public static class Animation extends WallAnimation {
   
   // Sorting Step Function
   void sortStep(){
-    int a = 0; int b = 0;
+    
   }
 
   // Number of wall slats
@@ -41,7 +41,9 @@ public static class Animation extends WallAnimation {
     // State Change
     
     // State to Wall
-    
+    for (int j = 0; j < 128; j++){
+        wall.slats[j].setBottom(state[j]); 
+    }
     // Terminate State
   }
 
