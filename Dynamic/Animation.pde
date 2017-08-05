@@ -15,36 +15,45 @@ public static class Animation extends WallAnimation {
   float i = 0;
   // initialize state array
   float state[] = new float[128];
+  float sortedState[] = new float[128];
+  
+  // Sorting Step Function
+  void sortStep(){
+    
+  }
 
   // Number of wall slats
   int wallLength = 128;
   
-  void stop(float array[]) {
-    //for(int i=0; i< array.length; i++){
-    //  if(array[i])
-    //}
+  
+  boolean isSorted(float array[]) { // Returns true if it's sorted
+    if(array == sortedState){
+      return true;
+    }
+    return false;
   }
   
   // Setup the wall
   void createWorstCase(){
     for(int i=1; i< 128; i=i+2){
-      state[i] = 1-((float)(i-1))/128;   
+      state[i] = 1.00 - ((float)(i-1))/128;   
     }
     
     for(int i=0; i< 128; i=i+2){
-      state[i] = 1-((float)i)/128;   
+      state[i] = 1.00 - ((float)i)/128;   
     }
-    
-    //int arrayInt = [1,2,3,4];
-    //System.out.println(arrayInt);
-    //System.out.println(state.length);
-    //System.out.println(Arrays.toString(state));
+    sortedState = Arrays.copyOf(state, state.length); 
+    Arrays.sort(sortedState);
+
+    System.out.println(Arrays.toString(state));
   }
   
   // The setup block runs at the beginning of the animation. You could
   // also use this function to initialize variables, load data, etc.
   void setup() {
     createWorstCase();
+    System.out.println("This is " + isSorted(state));
+    
     for (DWSlat slat : wall.slats){
       slat.setBottom(state[(int) i]);
       slat.setTop(0);
