@@ -88,12 +88,9 @@ public static class Animation extends WallAnimation {
       }
     } else {
     // State Change
-<<<<<<< HEAD
     bubbleStep();
-=======
-    //selectionStep();
-    //mergeSortStep();
->>>>>>> 2a6edfc5b9b4205e2f6dca4beaeb14681115a612
+    //sortStep();
+    
     // State to Wall
     for (int j = 0; j < 128; j++){
         wall.slats[j].setBottom(state[j]);
@@ -155,63 +152,7 @@ public static class Animation extends WallAnimation {
         return;
       }
   }
-    void merge(int arr[], int left, int mid, int right){
-    int size1 = mid - left + 1;
-    int size2 = right - mid;
-    
-    int LEFT[] = new int[size1];
-    int RIGHT[] = new int[size2];
-    
-    for (int i=0; i<size1; ++i){
-      LEFT[i] = arr[i+1];
-    }
-    
-    for (int j=0; j<size2; ++j){
-      RIGHT[j] = arr[mid+1+j];
-    }
-    
-  int i=0, j =0;
   
-  int k = left;
-  while(i < size1 && j < size2){
-    if(LEFT[i] <= RIGHT[j]){
-      arr[k] = LEFT[i];
-      i++;
-    }
-    
-    else{
-      arr[k] = RIGHT[j];
-      j++;    
-    }
-    k++;
-  }
-  
-  while(i < size1){
-    arr[k] = LEFT[i];
-    i++;
-    k++;
-  }
-  
-<<<<<<< HEAD
-  while(j < size2){
-    arr[k] = RIGHT[j];
-    j++;
-    k++;
-  }  
-  }
-  
-  void sort(int arr[], int left, int right){
-    if(left < right){
-      int mid = (left + right) / 2;
-      
-      sort(arr, left, mid);
-      sort(arr, mid+1, right);
-      
-      merge(arr, left, mid, right);
-      
-    }
-
-=======
     // Selection sort step function
   void bubbleStep() {
       for(int i=selectionI; i<127;i++){
@@ -229,9 +170,7 @@ public static class Animation extends WallAnimation {
         return;
       }
   }
-  
-  
->>>>>>> 74b0ed4bd374665a6725f5a9dd7c3d5bd19198b8
+
   // Swaping function
   void swap(int x, int y) {
     float temp = state[x];
@@ -241,7 +180,6 @@ public static class Animation extends WallAnimation {
   }
     
     
-  
   // You can ignore everything from here.
   String getBehaviorName() {
     return behaviorName;
