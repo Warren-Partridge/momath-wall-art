@@ -27,7 +27,7 @@ public static class Animation extends WallAnimation {
   int wallLength = 128;
   
   
-  boolean isSorted(float array[]) { // Returns true if it's sorted
+  boolean isSorted() { // Returns true if it's sorted
     if(Arrays.equals(state, sortedState)){
       return true;
     }
@@ -51,12 +51,13 @@ public static class Animation extends WallAnimation {
   }
   
   void createRandomCase(){
-      
-
      for(int i=1; i< 128; i++){
       int value = ThreadLocalRandom.current().nextInt(0, 128 + 1);
       state[i] = ((float)value)/128.00;
     }
+    
+    sortedState = Arrays.copyOf(state, state.length); 
+    Arrays.sort(sortedState);
     System.out.println(Arrays.toString(state));
   }
   
@@ -77,8 +78,14 @@ public static class Animation extends WallAnimation {
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
-    if (isSorted(state)) {
-      
+    if (isSorted()) {
+      print("This is finished");
+      createRandomCase();      
+      for (DWSlat slat : wall.slats){
+        slat.setBottom(state[(int) i]);
+        slat.setTop(0);
+        i++;
+      }
     } else {
     // State Change
     selectionStep();
