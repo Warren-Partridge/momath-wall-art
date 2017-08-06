@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 
 DynamicWallLib wallLib;
 
-WallAnimation anim = new AnimaFib(); //new AnimFib, AnimPi, AnimSeq
+WallAnimation anim = new Animation(); //new AnimFib, AnimPi, AnimSeq
 
 void setup() {
   size(1280, 480, P3D);

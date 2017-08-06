@@ -1,237 +1,163 @@
 public static class Animation extends WallAnimation {
+  // HEY READ THIS PLZ
+  // SERIOUSLY
+  // So this file is actually our old Fibonacci file. We have renamed it
+  // to Animation because we think that might fix the problem with
+  // streaming to the wall.
+  // So again, THIS IS FIBONACCI
+
+  
+  // First, we add metadata to be used in the MoMath system. Change these
+  // strings for your behavior.
+  String behaviorName = "Example Dynamic Wall Behavior";
+  String author = "MoMath";
+  String description = "Simple forward-backward behavior.";
 
 
-    // First, we add metadata to be used in the MoMath system. Change these
-    // strings for your behavior.
-    String behaviorName = "Sequences";
-    String author = "Team";
-    String description = "Slideshow of different Sequences";
+  // Now we initialize a few helpful global variables.
+  boolean forward = true;
+  float step = 0.0003;
+  float loc = 0;
+  int framecap = 0;
+  //float i = 0;
+  // initialize state array
 
+  
 
-    // Now we initialize a few helpful global variables.
-    boolean forward = true;
-    float i = 0;
-    // initialize state array
-    float state[] = new float[128];
-    float sortedState[] = new float[128];
-    int selectionI = 0;
-    int index = 0; //Change to 2 to start at bubble, 4 for insert
-
-
-
-    // Number of wall slats
-    int wallLength = 128;
-
-
-    boolean isSorted() { // Returns true if it's sorted
-        if (Arrays.equals(state, sortedState)) {
-            return true;
+  // Number of wall slats
+  int wallLength = 128;
+  int array1[] = new int[32];
+  int array2[] = new int[32];
+ 
+    void arrayAdd(int[] array1, int[] array2) {
+      boolean carry = false;
+      int[] arrayT = new int[32];
+      for (int i = 0; i < array1.length; i++){
+        arrayT[i] = array1[i];
+        array1[i] = array2[i];
+        if(arrayT[i] == 0 && array1[i]  == 0){
+          if (carry == true){
+            array2[i] = 1;
+            carry = false;
+          }
+          else{
+            array2[i] = 0;
+          }
         }
-        return false;
-    }
-
-    // Setup the wall
-    void createWorstCase() {
-        for (int i = 1; i < 128; i = i + 2) {
-            state[i] = 1.00 - ((float)(i - 1)) / 128;
+        else if (arrayT[i] != array1[i]){
+          if (carry == true){
+            array2[i] = 0;
+          }
+          else{
+            array2[i] = 1;
+          }
         }
-
-        for (int i = 0; i < 128; i = i + 2) {
-            state[i] = 1.00 - ((float) i) / 128;
+        else if (arrayT[i] == 1 && array1[i] == 1){
+          if (carry == true){
+            array2[i] = 1;
+          }
+          else{
+            array2[i] = 0;
+            carry = true;
+          }
         }
-        sortedState = Arrays.copyOf(state, state.length);
-        Arrays.sort(sortedState);
-
-
-        System.out.println(Arrays.toString(state));
-    }
-
-    void createRandomCase() {
-        for (int i = 1; i < 128; i++) {
-            int value = ThreadLocalRandom.current().nextInt(0, 128 + 1);
-            state[i] = ((float) value) / 128.00;
-        }
-        sortedState = Arrays.copyOf(state, state.length);
-        Arrays.sort(sortedState);
-        System.out.println(Arrays.toString(state));
-    }
-
-    // The setup block runs at the beginning of the animation. You could
-    // also use this function to initialize variables, load data, etc.
-    void setup() {
-        createRandomCase();
-        updateSlat();
-    }
-    
-
-    
-
-    // The update block will be repeated for each frame. This is where the
-    // action should be programmed.
-    void update() {
-      
-      //Selection Sort
-      if(index<2){
-        if(!isSorted()){
-          selectionStep();
-          
-        } else {
-          time(5);
-          index +=1;
-          createRandomCase();
-        }
-        updateSlat();
       }
-      
-      //Bubble Sort
-      else if(index<4){
-        if(!isSorted()){
-          bubbleStep();
-        } else {
-          System.out.println("Wait");
-          time(5);
-          index +=1;
-          createRandomCase();
-          time(2);
-        }
-        updateSlat();
-      }
-      
-      //Insert Sort
-      else if(index<6){
-        if(!isSorted()){
-          insertStep();
-        } else {
-          System.out.println("Wait");
-          time(5);
-          index +=1;
-          createRandomCase();
-          time(4);
-        }
-        updateSlat();
-      }
-
     }
+  
 
-    void time(int seconds) {
-            int miliseconds = seconds * 1000;
-            float startTime = pApplet.millis();
-            while (pApplet.millis() <= startTime + miliseconds) {}
-        }
-        // Leave this function blank
-    void exit() {}
-
-
-    static int[] fib(int n) {
-        int[] feb = new int[n];
-        feb[0] = 0;
-        feb[1] = 1;
-
-
-        for (int i = 2; i < n; i++) {
-            feb[i] = feb[i - 1] + feb[i - 2];
-            System.out.print(feb[i] + " ");
-        }
-
-        return feb;
-    }
-
-    void updateSlat() {
-            for (int j = 0; j < 128; j++) {
-                wall.slats[j].setBottom(state[j]);
-                wall.slats[j].setTop(1-state[j]);
-            }
-        }
-        // Selection sort step function
-    void selectionStep() {
-        int min_index = selectionI;
-        for (int j = selectionI + 1; j < 128; j++) {
-            if (state[j] < state[min_index]) {
-                min_index = j;
-            }
-        }
-        swap(min_index, selectionI);
-        if (selectionI >= 127) {
-            selectionI = 0;
-            return;
-        } else {
-            selectionI++;
-            return;
-        }
-    }
-
-    // Selection sort step function
-    void bubbleStep() {
-        
-        //This will speed up the process
-        for (int i = selectionI; i < 127; i++) {
-            int counter = 0;
-            if (state[i] > state[i + 1]) {
-                swap(i, i + 1);
-                
-                if(counter==1){
-                  break;
-                }
-                counter++;
-                
-            }
-        }
-
-        if (selectionI >= 127) {
-            selectionI = 0;
-            return;
-        } else {
-            selectionI++;
-            return;
-        }
+  // also use this function to initialize variables, load data, etc.
+  void setup() {
+  
+    array2[0] = 1; 
+    updateSlat();
+    
+    System.out.println(Arrays.toString(array1));
+    System.out.println(Arrays.toString(array2));
+  }
+       
+       
+  void time(float seconds) {
+        float miliseconds = seconds * 1000;
+        float startTime = pApplet.millis();
+        while (pApplet.millis() <= startTime + miliseconds) {}
     }
     
-    // Insertion sort
+
+  // The update block will be repeated for each frame. This is where the
+  // action should be programmed.
+  void update() {
+    //time(0.33); // Changes the frames per second in a way
+    if (array2[31] == 1) { //It's Finished
+      
+      System.out.println(Arrays.toString(array1));
+      System.out.println("FIBONACCI COMPLETE");
+      //[1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]
+      //4205301430
+    } else if (framecap%6 == 0) {
+/*=======
+      array1 = new int[32];
+      array2 = new int[32];      
+      //[1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]
+      //4205301430
+      array2[0] = 1;
+      updateSlat();
+      time(1); //Comment out to go continuously
+      
+      System.out.println(Arrays.toString(array1));
+      System.out.println(Arrays.toString(array2));
+    } 
+    else {
+>>>>>>> origin/master*/
+      // State Change
+      arrayAdd(array1, array2);
     
-    void insertStep(){
-        //This will speed up the process
-        for (int i = 0; i < selectionI; i++) {
-            int counter = 0;
-            if (state[i] > state[i + 1]) {
-                swap(i, i + 1);
-                
-                if(counter==1){ //Changing this value speeds up the process
-                  break;
-                }
-                counter++;
-                
-            }
+      // State to Wall
+      for (int j = 0; j < 128; j=j+4){
+        for(int i=j; i<j+4; i++){
+          wall.slats[i].setBottom(array1[j/4]);
+          wall.slats[i].setTop(array1[j/4]); 
         }
-        
-        if (selectionI >= 127) {
-            selectionI = 0;
-            return;
-        } else {
-            selectionI++;
-            return;
+      }
+      framecap++;
+    } else {
+      framecap++;
+      System.out.println("Hanging frame " + framecap%6 + "/" + 6);
+/*=======
+      updateSlat();
+    //System.out.println(Arrays.toString(state));
+    //// Terminate State
+>>>>>>> origin/master*/
+    }
+    //System.out.println(Arrays.toString(array1));
+  }
+
+  // Leave this function blank
+  void exit() {
+  }
+  
+  
+  void updateSlat() {
+      for (int j = 0; j < 128; j=j+4){
+        for(int i=j; i<j+4; i++){
+          wall.slats[i].setBottom(array1[j/4]);
+          wall.slats[i].setTop(array1[j/4]); 
         }
+      }
     }
-
-    // Swaping function
-    void swap(int x, int y) {
-        float temp = state[x];
-        state[x] = state[y];
-        state[y] = temp;
-        //System.out.println("SWAP OCCURRED: " + state[x] + " and " + state[y]);
-    }
-
-
-    // You can ignore everything from here.
-    String getBehaviorName() {
-        return behaviorName;
-    }
-
-    String getAuthorName() {
-        return author;
-    }
-
-    String getDescription() {
-        return description;
-    }
-
+ 
+    
+    
+  // You can ignore everything from here.
+  String getBehaviorName() {
+    return behaviorName;
+  }
+  
+  String getAuthorName() {
+    return author;
+  }
+  
+  String getDescription() {
+    return description;
+  }
+  
 }
