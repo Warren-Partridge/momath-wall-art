@@ -1,6 +1,7 @@
 public static class AnimationOld extends WallAnimation {
   // HEY READ THIS TOO PLZ
   // SERIOUSLY
+  
   // In case you didn't read the disclaimer in the new Animation file:
   // we are renaming files in an attempt to make Fibonacci stream to the wall.
   // The file you are reading right now is the old Animation file. If you want

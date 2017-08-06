@@ -1,6 +1,5 @@
 public static class AnimSeq extends WallAnimation {
 
-
     // First, we add metadata to be used in the MoMath system. Change these
     // strings for your behavior.
     String behaviorName = "Sequences";
@@ -71,12 +70,12 @@ public static class AnimSeq extends WallAnimation {
     void update() {
       
       //Selection Sort
-      if(index<2){
+      if(index==0){
         if(!isSorted()){
           selectionStep();
           
         } else {
-          time(5);
+          time(3);
           index +=1;
           createRandomCase();
         }
@@ -84,7 +83,7 @@ public static class AnimSeq extends WallAnimation {
       }
       
       //Bubble Sort
-      else if(index<4){
+      else if(index==1){
         if(!isSorted()){
           bubbleStep();
         } else {
@@ -98,13 +97,13 @@ public static class AnimSeq extends WallAnimation {
       }
       
       //Insert Sort
-      else if(index<6){
+      else if(index==2){
         if(!isSorted()){
           insertStep();
         } else {
           System.out.println("Wait");
           time(5);
-          index +=1;
+          index =0;
           createRandomCase();
           time(4);
         }
