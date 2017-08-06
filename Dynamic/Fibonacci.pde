@@ -12,6 +12,7 @@ public static class AnimationFib extends WallAnimation {
   boolean forward = true;
   float step = 0.0003;
   float loc = 0;
+  int framecap = 0;
   //float i = 0;
   // initialize state array
 
@@ -79,10 +80,10 @@ public static class AnimationFib extends WallAnimation {
   void update() {
     if (array2[31] == 1) {
       System.out.println(Arrays.toString(array1));
+      System.out.println("FIBONACCI COMPLETE");
       //[1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]
       //4205301430
-    } 
-    else {
+    } else if (framecap%6 == 0) {
       // State Change
       arrayAdd(array1, array2);
     
@@ -93,8 +94,10 @@ public static class AnimationFib extends WallAnimation {
           wall.slats[i].setTop(array1[j/4]); 
         }
       }
-    //System.out.println(Arrays.toString(state));
-    //// Terminate State
+      framecap++;
+    } else {
+      framecap++;
+      System.out.println("Hanging frame " + framecap%6 + "/" + 6);
     }
     System.out.println(Arrays.toString(array1));
   }
