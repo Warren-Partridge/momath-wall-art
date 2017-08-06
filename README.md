@@ -17,7 +17,7 @@ By using each slat of the Dynamic Wall to represent a point of data via their de
 
 By using each slat of the Dynamic Wall to represent a boolean value, where 0 is represented by a retracted slat and 1 is represented by an extended slat, we visualized the Fibonacci sequence (1:1, 2:1, 3:3, 4:5, 5:8, 6:13, 7: 21 ...).
 
-We bundled boolean slats into groups of 4 to display all Fibonacci numbers up until the 46th element. This is because we wanted to use all 128 slats on the wall. The Fibonacci sequence grows like 1.61^n; therefore, if we wanted to reach the nth Fibonacci sequence, it would take 3.2*10^14th seconds to reach a Fibonacci number that would use the 128th slat.
+We bundled boolean slats into groups of 4 to display all Fibonacci numbers up until the 46th element. This is because we wanted to use all 128 slats on the wall. The Fibonacci sequence grows like 1.61^n; therefore, if we wanted to reach the nth Fibonacci sequence, it would take 128*ln(2)/ln(1.61) = 186 seconds to reach a Fibonacci number that would use the 128th slat. We felt that three minutes was too long, so we opted to display up to the 46th element, which only takes ~45 seconds to present.
 
 *"Creased" Sine Function:*
 
