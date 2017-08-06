@@ -21,14 +21,20 @@ public static class Animation extends WallAnimation {
 
   // Number of wall slats
   int wallLength = 128;
-  int state[] = new int[128];
+  float state[] = new float[128];
+
  
   // also use this function to initialize variables, load data, etc.
   void setup() {
   
-    //for(inti=0; i<128;i=i+2){
-    //  state[i] = 
-    //}
+    for (int i = 0; i < 128; i=i+2){
+        //ODD
+        
+        //float value = (float)Math.sin((i/128) * PI) ;
+        float value = 0.5 * (float)Math.sin((float)i/32.00 * PI) + 0.5 ;
+        System.out.println(i + " " + value);
+        state[i] = value;
+    }
     updateSlat();
     
 
@@ -45,12 +51,17 @@ public static class Animation extends WallAnimation {
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
-      for (int i = 1; i < 128; i=i+2){
-        //ODD
-        wall.slats[i].setBottom(0);
-        wall.slats[i].setTop(1);
+      for (int i = 0; i < 128; i=i+2){
+        //float value = (float)Math.sin((i/128) * PI) ;
+        float value = 0.5 * (float)Math.sin((float)i/32.00 * PI) + 0.5 ;
+        System.out.println(i + " " + value);
+        state[i] = value;
       }
       updateSlat();
+
+      
+      System.out.println(Arrays.toString(state));
+      
 
   }
 
@@ -62,8 +73,8 @@ public static class Animation extends WallAnimation {
   void updateSlat() {
       for (int i = 0; i < 128; i=i+2){
         //ODD
-        wall.slats[i].setBottom(0);
-        wall.slats[i].setTop(1);
+        wall.slats[i].setBottom(state[i]);
+        wall.slats[i].setTop(state[i]);
         
         //Even
         wall.slats[i+1].setBottom(0);
