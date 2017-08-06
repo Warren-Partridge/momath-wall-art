@@ -34,7 +34,7 @@ void setup() {
 }
 
 void draw() {
-  rotateX(3*(PI/2)); //Best testing view
+  //rotateX(3*(PI/2)); //Best testing view
   
 
   //Comment Out These are test blocks

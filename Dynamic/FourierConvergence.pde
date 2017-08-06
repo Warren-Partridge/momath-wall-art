@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-public static class FourierConvergence extends WallAnimation {
-=======
 public static class AnimFourier extends WallAnimation {
->>>>>>> 199235422175a8862f5bb2d93e1f389d6cf13755
+
   
   
   // First, we add metadata to be used in the MoMath system. Change these

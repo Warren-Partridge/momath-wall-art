@@ -14,7 +14,7 @@ public static class Animation extends WallAnimation {
   float step = 0.0003;
   float loc = 0;
   int framecap = 0;
-  int index = 0;
+  int index = -25;
   //float i = 0;
   // initialize state array
 
@@ -27,15 +27,27 @@ public static class Animation extends WallAnimation {
  
   // also use this function to initialize variables, load data, etc.
   void setup() {
-  
-    for (int i = 0; i < 128; i=i+2){
-        //ODD
-        state[i] = 0;
-        
+      for (int i = 25; i < 50; i=i+2){
         //float value = (float)Math.sin((i/128) * PI) ;
+        float value = 0.2 * (float)Math.sin((float)(i-25)/25.00 * PI) + 0.6 ;
+        
+        state[i] = value;
+      }
+      
+      for (int i = 50; i < 75; i=i+2){
+        //float value = (float)Math.sin((i/128) * PI) ;
+        float value = 0.2 * (float)Math.sin((float)(i-25)/25.00 * PI) + 0.2;
+        
+        state[i] = value;
+      }
+      
+      for (int i = 75; i < 100; i=i+2){
+        //float value = (float)Math.sin((i/128) * PI) ;
+        float value = 0.2   * (float)Math.sin((float)(i-25)/25.00 * PI) + 0.6 ;
+        
+        state[i] = value;
+      } 
 
-        state[i+1] = 1;
-    }
     updateSlat();
     
 
@@ -52,42 +64,27 @@ public static class Animation extends WallAnimation {
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
-      for (int i = 0; i < 42; i=i+2){
-        //float value = (float)Math.sin((i/128) * PI) ;
-        float value = 0.4 * (float)Math.sin((float)(i+index)/42.00 * PI) + 0.6 ;
-        
-        state[i] = value;
-      }
-      
-      //for (int i = 42; i < 85; i=i+2){
-      //  //float value = (float)Math.sin((i/128) * PI) ;
-      //  float value = 0.2 * (float)Math.sin((float)(i-42+index)/42.00 * PI) + 0.4 ;
-        
-      //  state[i] = value;
+      //for(int i=0; i<128; i+=2){
+      //  if(i!=126){
+      //  state[i] = state[i+2];
+      //  } else { // Is equal to 126
+      //  state[i] = state[0];
+      //  }
       //}
       
-      //for (int i = 85; i < 128; i=i+2){
-      //  //float value = (float)Math.sin((i/128) * PI) ;
-      //  float value = 0.2 * (float)Math.sin((float)(i+index)/42.00 * PI) + 0.6 ;
-        
-      //  state[i] = value;
-      //}
-      ////index +=1;
-      updateSlat();
+      //time(
+     //pdateSlat2();
 
-      
-      System.out.println(Arrays.toString(state));
       
 
   }
 
   // Leave this function blank
-  void exit() {
-  }
-  
+  void exit(){
+    }
   
   void updateSlat() {
-      for (int i = 25; i < 50; i=i+2){
+      for (int i = 25 ; i < 50 ; i=i+2){
         //Section 1
         wall.slats[i].setBottom(state[i]);
         wall.slats[i].setTop(state[i]);
@@ -96,22 +93,22 @@ public static class Animation extends WallAnimation {
         wall.slats[i+1].setBottom(0);
       }
       
-      //for (int i = 43; i < 85; i=i+2){
-      //  //Section 1
-      //  wall.slats[i].setBottom(state[i]);
-      //  wall.slats[i].setTop(state[i]);
+      for (int i = 50; i < 75; i=i+2){
+        //Section 1
+        wall.slats[i].setBottom(state[i]);
+        wall.slats[i].setTop(state[i]);
         
-      //  wall.slats[i+1].setTop(1);
-      //  wall.slats[i+1].setBottom(0);
-      //}
-      //for (int i = 84; i < 128; i=i+2){
-      //  //Section 1
-      //  wall.slats[i].setBottom(state[i]);
-      //  wall.slats[i].setTop(state[i]);
+        wall.slats[i+1].setTop(1);
+        wall.slats[i+1].setBottom(0);
+      }
+      for (int i = 75 ; i < 100; i=i+2){
+        //Section 1
+        wall.slats[i].setBottom(state[i]);
+        wall.slats[i].setTop(state[i]);
         
-      //  wall.slats[i+1].setTop(1);
-      //  wall.slats[i+1].setBottom(0);
-      //}
+        wall.slats[i+1].setTop(1);
+        wall.slats[i+1].setBottom(0);
+      }
       
      
     }
