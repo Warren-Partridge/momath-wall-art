@@ -19,12 +19,9 @@ import java.lang.*;
 
 DynamicWallLib wallLib;
 
-<<<<<<< HEAD
-WallAnimation anim = new FourierConvergence(); //new AnimFib, AnimPi, AnimSeq
-=======
+//WallAnimation anim = new FourierConvergence(); //new AnimFib, AnimPi, AnimSeq
+WallAnimation anim = new Animation(); //new AnimFib, AnimPi, AnimSeq
 
-WallAnimation anim = new AnimSeq(); //new AnimFib, AnimPi, AnimSeq
->>>>>>> 199235422175a8862f5bb2d93e1f389d6cf13755
 
 void setup() {
   size(1280, 480, P3D);
