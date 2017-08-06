@@ -14,7 +14,14 @@ public static class AnimSeq extends WallAnimation {
     float state[] = new float[128];
     float sortedState[] = new float[128];
     int selectionI = 0;
-    int index = 0; //Change to 2 to start at bubble, 4 for insert
+    int index = 3; //Change to 2 to start at bubble, 4 for insert
+    
+    // Stuff for quicksort (plz don't touch <3)
+    int stateLength = 128;
+    int lowerIndex = 0;
+    int higherIndex = stateLength - 1;
+    int quickI = lowerIndex;
+    int quickJ = higherIndex;
 
 
 
@@ -69,41 +76,63 @@ public static class AnimSeq extends WallAnimation {
     // action should be programmed.
     void update() {
       
-      //Selection Sort
+      // Selection Sort
       if(index==0){
         if(!isSorted()){
           selectionStep();
           
         } else {
           time(3);
-          index +=1;
+          index++;
           createRandomCase();
         }
         updateSlat();
       }
       
-      //Bubble Sort
+      // Bubble Sort
       else if(index==1){
         if(!isSorted()){
           bubbleStep();
         } else {
           System.out.println("Wait");
           time(5);
-          index +=1;
+          index++;
           createRandomCase();
           time(2);
         }
         updateSlat();
       }
       
-      //Insert Sort
+      // Insert Sort
       else if(index==2){
         if(!isSorted()){
           insertStep();
         } else {
           System.out.println("Wait");
           time(5);
-          index =0;
+          index++;
+          createRandomCase();
+          time(2);
+        }
+        updateSlat();
+      }
+      
+      // QuickSort
+      else if(index==3){
+        if(!isSorted()){
+          if (lowerIndex < quickJ) {
+            quickStep(lowerIndex, quickJ);
+          }
+          if (quickI < higherIndex) {
+            quickStep(quickI, higherIndex);
+          }
+          else {
+            System.out.println("You should never be seeing this message");
+          }
+        } else {
+          System.out.println("Wait");
+          time(5);
+          index=0;
           createRandomCase();
           time(4);
         }
@@ -225,14 +254,44 @@ public static class AnimSeq extends WallAnimation {
             return;
         }
     }
+    
+    void quickStep(int lowerIndex, int higherIndex) {
+      quickI = lowerIndex;
+      quickJ = higherIndex;
+      int pivotPt = lowerIndex + (higherIndex - lowerIndex)/2;
+      float pivotData = state[pivotPt];
+      while (quickI <= quickJ) {
+        /**
+          * In each iteration, we will identify a number from left side which 
+          * is greater then the pivot value, and also we will identify a number 
+          * from right side which is less then the pivot value. Once the search 
+          * is done, then we exchange both numbers.
+          */
+        while(state[quickI] < pivotData) {
+          quickI++;
+        }
+        while(state[quickJ] > pivotData) {
+          quickJ--;
+        }
+        if (quickI <= quickJ) {
+          swap(quickI, quickJ);
+          quickI++;
+          quickJ--;
+          return;
+        }
+      }
+    }
+        
 
-    // Swaping function
+    // Swapping function
     void swap(int x, int y) {
         float temp = state[x];
         state[x] = state[y];
         state[y] = temp;
         //System.out.println("SWAP OCCURRED: " + state[x] + " and " + state[y]);
     }
+      
+    
 
 
     // You can ignore everything from here.
