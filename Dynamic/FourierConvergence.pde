@@ -1,4 +1,3 @@
-
 public static class FourierConvergence extends WallAnimation {
   
   

@@ -247,10 +247,10 @@ public static class AnimSeq extends WallAnimation {
         }
     }
     
-    void quickStep(int lowerIndex, int higherIndex) {
-      quickI = lowerIndex;
-      quickJ = higherIndex;
-      int pivotPt = lowerIndex + (higherIndex - lowerIndex)/2;
+    void quickStep(int low, int high) {
+      quickI = low;
+      quickJ = high;
+      int pivotPt = low + (high - low)/2;
       float pivotData = state[pivotPt];
       while (quickI <= quickJ) {
         while(state[quickI] < pivotData) {
