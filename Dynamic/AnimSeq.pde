@@ -110,8 +110,23 @@ public static class AnimSeq extends WallAnimation {
         updateSlat();
       }
 
+      else if(index==3){
+        if(!isSorted()){
+          quickStep();
+        } else {
+          System.out.println("Wait");
+          time(5);
+          index =0;
+          createRandomCase();
+          time(4);
+        }
+        updateSlat();
+      }
     }
-
+    
+    void quickStep(){
+      
+    }
     void time(int seconds) {
             int miliseconds = seconds * 1000;
             float startTime = pApplet.millis();
