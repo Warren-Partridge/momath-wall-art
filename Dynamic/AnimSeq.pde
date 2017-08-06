@@ -1,6 +1,5 @@
 public static class AnimSeq extends WallAnimation {
 
-
     // First, we add metadata to be used in the MoMath system. Change these
     // strings for your behavior.
     String behaviorName = "Sequences";
@@ -15,7 +14,14 @@ public static class AnimSeq extends WallAnimation {
     float state[] = new float[128];
     float sortedState[] = new float[128];
     int selectionI = 0;
-    int index = 0; //Change to 2 to start at bubble, 4 for insert
+    int index = 3; //Change to 2 to start at bubble, 4 for insert
+    
+    // Stuff for quicksort (plz don't touch <3)
+    int stateLength = 128;
+    int lowerIndex = 0;
+    int higherIndex = stateLength - 1;
+    int quickI = lowerIndex;
+    int quickJ = higherIndex;
 
 
 
@@ -70,41 +76,70 @@ public static class AnimSeq extends WallAnimation {
     // action should be programmed.
     void update() {
       
-      //Selection Sort
-      if(index<2){
+      // Selection Sort
+      if(index==0){
         if(!isSorted()){
           selectionStep();
           
         } else {
-          time(5);
-          index +=1;
+          time(3);
+          index++;
           createRandomCase();
         }
         updateSlat();
       }
       
-      //Bubble Sort
-      else if(index<4){
+      // Bubble Sort
+      else if(index==1){
         if(!isSorted()){
           bubbleStep();
         } else {
           System.out.println("Wait");
           time(5);
-          index +=1;
+          index++;
           createRandomCase();
           time(2);
         }
         updateSlat();
       }
       
-      //Insert Sort
-      else if(index<6){
+      // Insert Sort
+      else if(index==2){
         if(!isSorted()){
           insertStep();
         } else {
           System.out.println("Wait");
           time(5);
-          index +=1;
+          index++;
+          createRandomCase();
+          time(2);
+        }
+        updateSlat();
+      }
+      
+      // QuickSort
+      else if(index==3){
+        if(!isSorted()){
+          if (quickI == 127 && quickJ == 0) {
+            quickStep(quickI, quickJ);
+            
+
+          }
+          if (lowerIndex < quickJ) {
+            quickStep(lowerIndex, quickJ);
+          }
+          if (quickI < higherIndex) {
+            quickStep(quickI, higherIndex);
+          }
+          else {
+            //System.out.println("You should never be seeing this message");
+          }
+          
+          System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
+        } else {
+          System.out.println("Wait");
+          time(5);
+          index=0;
           createRandomCase();
           time(4);
         }
@@ -211,14 +246,39 @@ public static class AnimSeq extends WallAnimation {
             return;
         }
     }
+    
+    void quickStep(int lowerIndex, int higherIndex) {
+      quickI = lowerIndex;
+      quickJ = higherIndex;
+      int pivotPt = lowerIndex + (higherIndex - lowerIndex)/2;
+      float pivotData = state[pivotPt];
+      while (quickI <= quickJ) {
+        while(state[quickI] < pivotData) {
+          quickI++;
+        }
+        while(state[quickJ] > pivotData) {
+          quickJ--;
+        }
+        if (quickI <= quickJ) {
+          swap(quickI, quickJ);
+          quickI++;
+          quickJ--;
+        }
+        System.out.println("This is pie");
+      }
+      return;
+    }
+        
 
-    // Swaping function
+    // Swapping function
     void swap(int x, int y) {
         float temp = state[x];
         state[x] = state[y];
         state[y] = temp;
         //System.out.println("SWAP OCCURRED: " + state[x] + " and " + state[y]);
     }
+      
+    
 
 
     // You can ignore everything from here.

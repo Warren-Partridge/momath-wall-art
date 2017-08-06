@@ -1,4 +1,4 @@
-public static class Animation extends WallAnimation {
+public static class AnimSin extends WallAnimation {
 
 
   
