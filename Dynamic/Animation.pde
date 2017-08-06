@@ -30,11 +30,11 @@ public static class Animation extends WallAnimation {
   
     for (int i = 0; i < 128; i=i+2){
         //ODD
+        state[i] = 0;
         
         //float value = (float)Math.sin((i/128) * PI) ;
-        float value = 0.5 * (float)Math.sin((float)i/32.00 * PI) + 0.5 ;
-        System.out.println(i + " " + value);
-        state[i] = value;
+
+        state[i+1] = 1;
     }
     updateSlat();
     
@@ -52,13 +52,27 @@ public static class Animation extends WallAnimation {
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
-      for (int i = 0; i < 128; i=i+2){
+      for (int i = 0; i < 42; i=i+2){
         //float value = (float)Math.sin((i/128) * PI) ;
-        float value = 0.5 * (float)Math.sin((float)(i+index)/32.00 * PI) + 0.5 ;
+        float value = 0.4 * (float)Math.sin((float)(i+index)/42.00 * PI) + 0.6 ;
         
         state[i] = value;
       }
-      index +=1;
+      
+      //for (int i = 42; i < 85; i=i+2){
+      //  //float value = (float)Math.sin((i/128) * PI) ;
+      //  float value = 0.2 * (float)Math.sin((float)(i-42+index)/42.00 * PI) + 0.4 ;
+        
+      //  state[i] = value;
+      //}
+      
+      //for (int i = 85; i < 128; i=i+2){
+      //  //float value = (float)Math.sin((i/128) * PI) ;
+      //  float value = 0.2 * (float)Math.sin((float)(i+index)/42.00 * PI) + 0.6 ;
+        
+      //  state[i] = value;
+      //}
+      ////index +=1;
       updateSlat();
 
       
@@ -73,15 +87,33 @@ public static class Animation extends WallAnimation {
   
   
   void updateSlat() {
-      for (int i = 0; i < 128; i=i+2){
-        //ODD
+      for (int i = 25; i < 50; i=i+2){
+        //Section 1
         wall.slats[i].setBottom(state[i]);
         wall.slats[i].setTop(state[i]);
         
-        //Even
+        wall.slats[i+1].setTop(1);
         wall.slats[i+1].setBottom(0);
-        wall.slats[i+1].setTop(0); 
       }
+      
+      //for (int i = 43; i < 85; i=i+2){
+      //  //Section 1
+      //  wall.slats[i].setBottom(state[i]);
+      //  wall.slats[i].setTop(state[i]);
+        
+      //  wall.slats[i+1].setTop(1);
+      //  wall.slats[i+1].setBottom(0);
+      //}
+      //for (int i = 84; i < 128; i=i+2){
+      //  //Section 1
+      //  wall.slats[i].setBottom(state[i]);
+      //  wall.slats[i].setTop(state[i]);
+        
+      //  wall.slats[i+1].setTop(1);
+      //  wall.slats[i+1].setBottom(0);
+      //}
+      
+     
     }
  
     

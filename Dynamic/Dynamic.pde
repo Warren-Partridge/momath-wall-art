@@ -20,7 +20,7 @@ import java.lang.*;
 DynamicWallLib wallLib;
 
 
-WallAnimation anim = new AnimSeq(); //new AnimFib, AnimPi, AnimSeq
+WallAnimation anim = new Animation(); //new AnimFib, AnimPi, AnimSeq
 
 void setup() {
   size(1280, 480, P3D);

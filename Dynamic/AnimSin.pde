@@ -80,7 +80,7 @@ public static class AnimSin extends WallAnimation {
         
         //Even
         wall.slats[i+1].setBottom(0);
-        wall.slats[i+1].setTop(0); 
+        wall.slats[i+1].setTop(1); 
       }
     }
  
