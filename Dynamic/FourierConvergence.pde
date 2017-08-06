@@ -1,8 +1,5 @@
-<<<<<<< HEAD
+
 public static class FourierConvergence extends WallAnimation {
-=======
-public static class AnimFourier extends WallAnimation {
->>>>>>> 199235422175a8862f5bb2d93e1f389d6cf13755
   
   
   // First, we add metadata to be used in the MoMath system. Change these
@@ -20,7 +17,7 @@ public static class AnimFourier extends WallAnimation {
   double image[] = new double[64];
   double constant[] = new double[64];
   int framecap = 0;
-  int framerate = 18;
+  int framerate = 6;
 
   
   // Crease stuff
@@ -47,7 +44,7 @@ public static class AnimFourier extends WallAnimation {
     for (int i = 0; i < 64; i++){
        image[i]+= 0.75*h*(2/(n*Math.PI) * Math.sin(periods*2*Math.PI * n*domain[i]));
     }
-    System.out.println(image.toString());
+    System.out.println(image[32]);
   }
   
   // Number of wall slats
@@ -75,7 +72,15 @@ public static class AnimFourier extends WallAnimation {
   void update() {
     // Check for Terminal State
     if (n == max){
-      System.out.println("Done");
+      for (int i = 0; i < 64; i++){
+        image[i] = h/2;
+      }
+      // setup the initial state
+      for (int j = 0; j < 128; j++){
+          wall.slats[j].setBottom(0.5);
+          wall.slats[j].setTop(0.5);
+      }
+      n = 1;
     }
     // State Change
     else if (framecap%framerate == 0){
