@@ -1,4 +1,4 @@
-public static class Animation extends WallAnimation {
+public static class AnimSeq extends WallAnimation {
 
 
     // First, we add metadata to be used in the MoMath system. Change these

@@ -1,4 +1,4 @@
-public static class AnimationFib extends WallAnimation {
+public static class AnimaFib extends WallAnimation {
 
   
   // First, we add metadata to be used in the MoMath system. Change these
@@ -63,27 +63,45 @@ public static class AnimationFib extends WallAnimation {
   void setup() {
   
     array2[0] = 1; 
-    for (int j = 0; j < 128; j=j+4){
-      for(int i=j; i<j+4; i++){
-        wall.slats[i].setBottom(array1[j/4]);
-        wall.slats[i].setTop(array1[j/4]); 
-      }
-    }
+    updateSlat();
     
     System.out.println(Arrays.toString(array1));
     System.out.println(Arrays.toString(array2));
   }
        
+       
+  void time(float seconds) {
+        float miliseconds = seconds * 1000;
+        float startTime = pApplet.millis();
+        while (pApplet.millis() <= startTime + miliseconds) {}
+    }
+    
 
   // The update block will be repeated for each frame. This is where the
   // action should be programmed.
   void update() {
-    if (array2[31] == 1) {
+    //time(0.33); // Changes the frames per second in a way
+    if (array2[31] == 1) { //It's Finished
+      
       System.out.println(Arrays.toString(array1));
       System.out.println("FIBONACCI COMPLETE");
       //[1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]
       //4205301430
     } else if (framecap%6 == 0) {
+/*=======
+      array1 = new int[32];
+      array2 = new int[32];      
+      //[1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0]
+      //4205301430
+      array2[0] = 1;
+      updateSlat();
+      time(1); //Comment out to go continuously
+      
+      System.out.println(Arrays.toString(array1));
+      System.out.println(Arrays.toString(array2));
+    } 
+    else {
+>>>>>>> origin/master*/
       // State Change
       arrayAdd(array1, array2);
     
@@ -98,15 +116,28 @@ public static class AnimationFib extends WallAnimation {
     } else {
       framecap++;
       System.out.println("Hanging frame " + framecap%6 + "/" + 6);
+/*=======
+      updateSlat();
+    //System.out.println(Arrays.toString(state));
+    //// Terminate State
+>>>>>>> origin/master*/
     }
-    System.out.println(Arrays.toString(array1));
+    //System.out.println(Arrays.toString(array1));
   }
 
   // Leave this function blank
   void exit() {
   }
   
-
+  
+  void updateSlat() {
+      for (int j = 0; j < 128; j=j+4){
+        for(int i=j; i<j+4; i++){
+          wall.slats[i].setBottom(array1[j/4]);
+          wall.slats[i].setTop(array1[j/4]); 
+        }
+      }
+    }
  
     
     
