@@ -9,7 +9,7 @@ public static class FourierConvergence extends WallAnimation {
 
 
   // Now we initialize a few helpful global variables.
-  int max = 13;
+  int max = 31;
   int n = 1;
   int periods = 4;
   double domain[] = new double[64];
@@ -22,7 +22,7 @@ public static class FourierConvergence extends WallAnimation {
   // Crease stuff
   // Constants:
   
-  double h = 5.286;
+  double h = 11;
   
   // slab calculators
   
@@ -30,11 +30,11 @@ public static class FourierConvergence extends WallAnimation {
     if (c == 0){
       return 0;
     }
-    return h/(2*h-2*c); 
+    return (h-c)/h; 
   }
   
   double fHigher(double c){
-    return (h)/(2*c);
+    return (h-c)/h;
   }
   // Square wave Fourier Series: 4/pi * sum_odd(sin(n*pi*x/L)
   // L = 1
@@ -60,8 +60,8 @@ public static class FourierConvergence extends WallAnimation {
     }
     // setup the initial state
     for (int j = 0; j < 128; j++){
-        wall.slats[j].setBottom(0.5);
-        wall.slats[j].setTop(0.5);
+        wall.slats[j].setBottom(1);
+        wall.slats[j].setTop(0);
     }
   }
        
@@ -76,8 +76,8 @@ public static class FourierConvergence extends WallAnimation {
       }
       // setup the initial state
       for (int j = 0; j < 128; j++){
-          wall.slats[j].setBottom(0.5);
-          wall.slats[j].setTop(0.5);
+          wall.slats[j].setBottom(1);
+          wall.slats[j].setTop(0);
       }
       n = 1;
     }
@@ -98,13 +98,13 @@ public static class FourierConvergence extends WallAnimation {
             System.out.println("ERROR");
           }
           else if (image[i/2] >= h/2){
-            wall.slats[i].setBottom((float) 0);
+            wall.slats[i].setBottom((float) fHigher(image[i/2]));
             wall.slats[i].setTop((float) fHigher(image[i/2]));
          //   System.out.println(fHigher(image[i/2]));
           }
           else{
             wall.slats[i].setBottom((float) fLower(image[i/2]));
-            wall.slats[i].setTop((float) 0);
+            wall.slats[i].setTop((float) fLower(image[i/2]));
           }
         }
       }
