@@ -3,7 +3,7 @@ public static class AnimSeq extends WallAnimation {
     // First, we add metadata to be used in the MoMath system. Change these
     // strings for your behavior.
     String behaviorName = "Sequences";
-    String author = "Team";
+    String author = "Kevin Jeane Tony Warren";
     String description = "Slideshow of different Sequences";
 
 
@@ -14,7 +14,7 @@ public static class AnimSeq extends WallAnimation {
     float state[] = new float[128];
     float sortedState[] = new float[128];
     int selectionI = 0;
-    int index = 3; //Change to 2 to start at bubble, 4 for insert
+    int index = 0; //Change to 2 to start at bubble, 4 for insert
     
     // Stuff for quicksort (plz don't touch <3)
     int stateLength = 128;
@@ -110,41 +110,41 @@ public static class AnimSeq extends WallAnimation {
         } else {
           System.out.println("Wait");
           time(5);
-          index++;
+          index=0;
           createRandomCase();
           time(2);
         }
         updateSlat();
       }
       
-      // QuickSort
-      else if(index==3){
-        if(!isSorted()){
-          if (quickI == 127 && quickJ == 0) {
-            quickStep(quickI, quickJ);
+      //// QuickSort
+      //else if(index==3){
+      //  if(!isSorted()){
+      //    if (quickI == 127 && quickJ == 0) {
+      //      quickStep(quickI, quickJ);
             
 
-          }
-          if (lowerIndex < quickJ) {
-            quickStep(lowerIndex, quickJ);
-          }
-          if (quickI < higherIndex) {
-            quickStep(quickI, higherIndex);
-          }
-          else {
-            //System.out.println("You should never be seeing this message");
-          }
+      //    }
+      //    if (lowerIndex < quickJ) {
+      //      quickStep(lowerIndex, quickJ);
+      //    }
+      //    if (quickI < higherIndex) {
+      //      quickStep(quickI, higherIndex);
+      //    }
+      //    else {
+      //      //System.out.println("You should never be seeing this message");
+      //    }
           
-          System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
-        } else {
-          System.out.println("Wait");
-          time(5);
-          index=0;
-          createRandomCase();
-          time(4);
-        }
-        updateSlat();
-      }
+      //    System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
+      //  } else {
+      //    System.out.println("Wait");
+      //    time(5);
+      //    index=0;
+      //    createRandomCase();
+      //    time(4);
+      //  }
+      //  updateSlat();
+      //}
 
     }
 
@@ -247,10 +247,10 @@ public static class AnimSeq extends WallAnimation {
         }
     }
     
-    void quickStep(int lowerIndex, int higherIndex) {
-      quickI = lowerIndex;
-      quickJ = higherIndex;
-      int pivotPt = lowerIndex + (higherIndex - lowerIndex)/2;
+    void quickStep(int low, int high) {
+      quickI = low;
+      quickJ = high;
+      int pivotPt = low + (high - low)/2;
       float pivotData = state[pivotPt];
       while (quickI <= quickJ) {
         while(state[quickI] < pivotData) {

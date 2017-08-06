@@ -4,9 +4,9 @@ public static class AnimFourier extends WallAnimation {
   
   // First, we add metadata to be used in the MoMath system. Change these
   // strings for your behavior.
-  String behaviorName = "Example Dynamic Wall Behavior";
-  String author = "MoMath";
-  String description = "Simple forward-backward behavior.";
+  String behaviorName = "Fourier Converge";
+  String author = "Kevin Jeane Tony Warren";
+  String description = "Creates lines through fourier transformations";
 
 
   // Now we initialize a few helpful global variables.
@@ -17,7 +17,7 @@ public static class AnimFourier extends WallAnimation {
   double image[] = new double[64];
   double constant[] = new double[64];
   int framecap = 0;
-  int framerate = 18;
+  int framerate = 6;
 
   
   // Crease stuff
@@ -44,7 +44,7 @@ public static class AnimFourier extends WallAnimation {
     for (int i = 0; i < 64; i++){
        image[i]+= 0.75*h*(2/(n*Math.PI) * Math.sin(periods*2*Math.PI * n*domain[i]));
     }
-    System.out.println(image.toString());
+    System.out.println(image[32]);
   }
   
   // Number of wall slats
@@ -72,7 +72,15 @@ public static class AnimFourier extends WallAnimation {
   void update() {
     // Check for Terminal State
     if (n == max){
-      System.out.println("Done");
+      for (int i = 0; i < 64; i++){
+        image[i] = h/2;
+      }
+      // setup the initial state
+      for (int j = 0; j < 128; j++){
+          wall.slats[j].setBottom(0.5);
+          wall.slats[j].setTop(0.5);
+      }
+      n = 1;
     }
     // State Change
     else if (framecap%framerate == 0){
