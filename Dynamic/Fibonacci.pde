@@ -1,4 +1,4 @@
-public static class AnimaFib extends WallAnimation {
+public static class AnimFib extends WallAnimation {
 
   
   // First, we add metadata to be used in the MoMath system. Change these

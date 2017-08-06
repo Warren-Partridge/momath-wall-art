@@ -117,34 +117,34 @@ public static class Animation extends WallAnimation {
         updateSlat();
       }
       
-      // QuickSort
-      else if(index==3){
-        if(!isSorted()){
-          if (quickI == 127 && quickJ == 0) {
-            quickStep(quickI, quickJ);
+      //// QuickSort
+      //else if(index==3){
+      //  if(!isSorted()){
+      //    if (quickI == 127 && quickJ == 0) {
+      //      quickStep(quickI, quickJ);
             
 
-          }
-          if (lowerIndex < quickJ) {
-            quickStep(lowerIndex, quickJ);
-          }
-          if (quickI < higherIndex) {
-            quickStep(quickI, higherIndex);
-          }
-          else {
-            //System.out.println("You should never be seeing this message");
-          }
+      //    }
+      //    if (lowerIndex < quickJ) {
+      //      quickStep(lowerIndex, quickJ);
+      //    }
+      //    if (quickI < higherIndex) {
+      //      quickStep(quickI, higherIndex);
+      //    }
+      //    else {
+      //      //System.out.println("You should never be seeing this message");
+      //    }
           
-          System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
-        } else {
-          System.out.println("Wait");
-          time(5);
-          index=0;
-          createRandomCase();
-          time(4);
-        }
-        updateSlat();
-      }
+      //    System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
+      //  } else {
+      //    System.out.println("Wait");
+      //    time(5);
+      //    index=0;
+      //    createRandomCase();
+      //    time(4);
+      //  }
+      //  updateSlat();
+      //}
 
     }
 

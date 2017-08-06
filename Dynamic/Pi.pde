@@ -3,9 +3,9 @@ public static class AnimPi extends WallAnimation {
   
   // First, we add metadata to be used in the MoMath system. Change these
   // strings for your behavior.
-  String behaviorName = "Example Dynamic Wall Behavior";
-  String author = "MoMath";
-  String description = "Simple forward-backward behavior.";
+  String behaviorName = "Pi";
+  String author = "Kevin Jeane Tony Warren";
+  String description = "Shows the first 100,000 digits of Pi";
 
 
   // Now we initialize a few helpful global variables.
