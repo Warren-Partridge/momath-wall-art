@@ -19,8 +19,9 @@ import java.lang.*;
 
 DynamicWallLib wallLib;
 
-
+//WallAnimation anim = new FourierConvergence(); //new AnimFib, AnimPi, AnimSeq
 WallAnimation anim = new Animation(); //new AnimFib, AnimPi, AnimSeq
+
 
 void setup() {
   size(1280, 480, P3D);
@@ -36,7 +37,7 @@ void draw() {
   rotateX(3*(PI/2)); //Best testing view
   
 
-  ////Comment Out These are test blocks
+  //Comment Out These are test blocks
   //rotateX(PI);
   //rotateY(6*(PI/4) - 1*PI/32);
   //translate(0,0,150);
