@@ -120,6 +120,11 @@ public static class AnimSeq extends WallAnimation {
       // QuickSort
       else if(index==3){
         if(!isSorted()){
+          if (quickI == 127 && quickJ == 0) {
+            quickStep(quickI, quickJ);
+            
+
+          }
           if (lowerIndex < quickJ) {
             quickStep(lowerIndex, quickJ);
           }
@@ -127,8 +132,10 @@ public static class AnimSeq extends WallAnimation {
             quickStep(quickI, higherIndex);
           }
           else {
-            System.out.println("You should never be seeing this message");
+            //System.out.println("You should never be seeing this message");
           }
+          
+          System.out.println("Lower Index is " + quickI + " Higher Index " + quickJ);
         } else {
           System.out.println("Wait");
           time(5);
@@ -139,23 +146,8 @@ public static class AnimSeq extends WallAnimation {
         updateSlat();
       }
 
-      else if(index==3){
-        if(!isSorted()){
-          quickStep();
-        } else {
-          System.out.println("Wait");
-          time(5);
-          index =0;
-          createRandomCase();
-          time(4);
-        }
-        updateSlat();
-      }
     }
-    
-    void quickStep(){
-      
-    }
+
     void time(int seconds) {
             int miliseconds = seconds * 1000;
             float startTime = pApplet.millis();
@@ -261,12 +253,6 @@ public static class AnimSeq extends WallAnimation {
       int pivotPt = lowerIndex + (higherIndex - lowerIndex)/2;
       float pivotData = state[pivotPt];
       while (quickI <= quickJ) {
-        /**
-          * In each iteration, we will identify a number from left side which 
-          * is greater then the pivot value, and also we will identify a number 
-          * from right side which is less then the pivot value. Once the search 
-          * is done, then we exchange both numbers.
-          */
         while(state[quickI] < pivotData) {
           quickI++;
         }
@@ -277,9 +263,10 @@ public static class AnimSeq extends WallAnimation {
           swap(quickI, quickJ);
           quickI++;
           quickJ--;
-          return;
         }
+        System.out.println("This is pie");
       }
+      return;
     }
         
 

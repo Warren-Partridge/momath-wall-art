@@ -14,6 +14,7 @@ public static class Animation extends WallAnimation {
   float step = 0.0003;
   float loc = 0;
   int framecap = 0;
+  int index = 0;
   //float i = 0;
   // initialize state array
 
@@ -53,10 +54,11 @@ public static class Animation extends WallAnimation {
   void update() {
       for (int i = 0; i < 128; i=i+2){
         //float value = (float)Math.sin((i/128) * PI) ;
-        float value = 0.5 * (float)Math.sin((float)i/32.00 * PI) + 0.5 ;
-        System.out.println(i + " " + value);
+        float value = 0.5 * (float)Math.sin((float)(i+index)/32.00 * PI) + 0.5 ;
+        
         state[i] = value;
       }
+      index +=1;
       updateSlat();
 
       
